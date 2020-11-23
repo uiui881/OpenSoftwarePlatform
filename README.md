@@ -7,3 +7,5 @@ participate : 1615008 Sorim Kim, 1615009 Sohyun Kim, 1615049 Seora Lee, 1615042 
 using HTML, CSS, javaScript, PHP, firebase
 
 
+My Name is Jiwoo Yoo
+Student ID is 1615042
