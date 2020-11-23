@@ -11,4 +11,4 @@ participate : 1615008 Sorim Kim, 1615009 Sohyun Kim, 1615049 Seora Lee, 1615042 
 
 1615042 유지우
 
-1615009 
+1615009 김소현
