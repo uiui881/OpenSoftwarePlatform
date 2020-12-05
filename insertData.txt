@@ -3,21 +3,21 @@ insert into users(email, password, name, goal) values('ewha2@email.com', 2222, '
 insert into users(email, password, name, goal) values('ewha3@email.com', 3333, 'bubble gum cookie', 53);
 insert into users(email, password, name, goal) values('ewha4@email.com', 4444, 'cherry cookie', 54);
 
-insert into video(link, startDate) values ('https://www.youtube.com/embed/CTojmKLkWTo', '2020-06-29');
-insert into video(link, startDate) values ('https://www.youtube.com/embed/4EKo44DUvjg', '2020-05-20');
-insert into video(link, startDate) values ('https://www.youtube.com/embed/2swcod5RYvU', '2020-07-01');
-insert into video(link, startDate) values ('https://www.youtube.com/embed/cl5cc1_5zZc', '2020-01-03');
-insert into video(link, startDate) values ('https://www.youtube.com/embed/yyjOhsNEqtE', '2020-03-12');
-insert into video(link, startDate) values ('https://www.youtube.com/embed/WjhvPyne8PU, '2020-12-04');
-insert into video(link, startDate) values ('https://www.youtube.com/embed/TwAujNfKhqs', '2020-10-05');
-insert into video(link, startDate) values ('https://www.youtube.com/embed/cMkZ6A7wngk', '2020-01-06');
-insert into video(link, startDate) values ('https://www.youtube.com/embed/hrJWqPt8jFs', '2020-09-05');
-insert into video(link, startDate) values ('https://www.youtube.com/embed/hR1ZgDQqyVI', '2020-09-07');
-insert into video(link, startDate) values ('https://www.youtube.com/embed/CnfhncSubmM', '2020-06-20');
-insert into video(link, startDate) values ('https://www.youtube.com/embed/7TLk7pscICk', '2020-02-18');
-insert into video(link, startDate) values ('https://www.youtube.com/embed/A8DPNQjPvRo', '2020-11-21');
-insert into video(link, startDate) values ('https://www.youtube.com/embed/Ne2e0TwG5ww', '2020-07-08');
-insert into video(link, startDate) values ('https://www.youtube.com/embed/bo6G-AWcFpM', '2020-12-04');
+insert into video(link, add_date) values ('https://www.youtube.com/embed/CTojmKLkWTo', '2020-06-29');
+insert into video(link, add_date) values ('https://www.youtube.com/embed/4EKo44DUvjg', '2020-05-20');
+insert into video(link, add_date) values ('https://www.youtube.com/embed/2swcod5RYvU', '2020-07-01');
+insert into video(link, add_date) values ('https://www.youtube.com/embed/cl5cc1_5zZc', '2020-01-03');
+insert into video(link, add_date) values ('https://www.youtube.com/embed/yyjOhsNEqtE', '2020-03-12');
+insert into video(link, add_date) values ('https://www.youtube.com/embed/WjhvPyne8PU', '2020-12-04');
+insert into video(link, add_date) values ('https://www.youtube.com/embed/TwAujNfKhqs', '2020-10-05');
+insert into video(link, add_date) values ('https://www.youtube.com/embed/cMkZ6A7wngk', '2020-01-06');
+insert into video(link, add_date) values ('https://www.youtube.com/embed/hrJWqPt8jFs', '2020-09-05');
+insert into video(link, add_date) values ('https://www.youtube.com/embed/hR1ZgDQqyVI', '2020-09-07');
+insert into video(link, add_date) values ('https://www.youtube.com/embed/CnfhncSubmM', '2020-06-20');
+insert into video(link, add_date) values ('https://www.youtube.com/embed/7TLk7pscICk', '2020-02-18');
+insert into video(link, add_date) values ('https://www.youtube.com/embed/A8DPNQjPvRo', '2020-11-21');
+insert into video(link, add_date) values ('https://www.youtube.com/embed/Ne2e0TwG5ww', '2020-07-08');
+insert into video(link, add_date) values ('https://www.youtube.com/embed/bo6G-AWcFpM', '2020-12-04');
 
 insert into user_video(user_id, video_id) values(1,1);
 insert into user_video(user_id, video_id) values(1,2);
