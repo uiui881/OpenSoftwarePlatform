@@ -4,7 +4,7 @@
    
    $dd=date_diff($startdate,$todaydate);
 
-   $conn = mysqli_connect("localhost","root", "159753", "ut");
+   $conn = mysqli_connect("localhost","root", "", "ut");
 
    $conn->set_charset("utf8");
 
