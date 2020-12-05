@@ -17,7 +17,7 @@ $result = mysqli_query($conn, $sql);
 	if($result){
 		?><script>
 		alert('회원 가입을 축하합니다.');
-		location.replace('./main.php');
+		location.replace('./login.php');
 		</script>
 	<?php }
 	else if(!$result){
