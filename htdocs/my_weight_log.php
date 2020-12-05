@@ -40,10 +40,23 @@ body{
 <h2>My Weight Log</h2>
 
 <body>
-  <div style="width:1000px; margin-left:auto; margin-right:auto;">
+
+<table style="width:1000px;margin-left:auto; margin-right:auto; font-size:30;">
+  <tr><td style="text-align:left;">
   <?php
+    $user_id=1;
+    $sql2 = "SELECT goal FROM users WHERE user_id=$user_id;";
+    $result2 = mysqli_query($conn, $sql2);
+    $goal = mysqli_fetch_array($result2);
+    echo 'Weight Goal : '.$goal['goal'].'kg';
+?>
+</td>
+<td style="text-align:right;">
+<?php
+
+
 //  $user_id=$_GET['idx'];
-  $user_id=1;
+
   $sql = "SELECT * FROM weight_record WHERE user_id=$user_id;";
   $result = mysqli_query($conn, $sql);
   $row = mysqli_fetch_array($result);
@@ -56,10 +69,13 @@ body{
   echo "<script>
   function openAddPage()
   {
-  window.open('$path1', 'startpop', 'top=0, left=0, width=800, height=500, scrollbars=no, resizable=no ,status=no ,toolbar=no');
+  window.open('$path1', 'startpop', 'top=0, left=0, width=500, height=350, scrollbars=no, resizable=no ,status=no ,toolbar=no, left=500, top=200');
   } </script>";
   ?>
-</div>
+</td>
+</tr>
+</table>
+
 
 
 
