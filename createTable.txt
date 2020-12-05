@@ -1,0 +1,43 @@
+use ut;
+
+create table users( 
+    user_id int AUTO_INCREMENT,
+    email varchar(40) not null,
+    password varchar(40) not null,
+    name varchar(20) not null,
+    goal int,
+    PRIMARY KEY(user_id)
+);
+
+create table weight_record ( 
+    user_id int,
+     date DATE,
+    weight int not null,
+    PRIMARY KEY(user_id, date),
+    FOREIGN KEY(user_id) REFERENCES users(user_id) on DELETE CASCADE
+);
+
+create table video( 
+   video_id int AUTO_INCREMENT,
+   link varchar(100) not null,
+   add_date DATE,
+   PRIMARY KEY(video_id)
+);
+
+create table user_video( 
+   user_id int,
+   video_id int,
+   PRIMARY KEY(user_id, video_id),
+   FOREIGN KEY(user_id) REFERENCES users(user_id) on DELETE CASCADE,
+   FOREIGN KEY(video_id) REFERENCES video(video_id) on DELETE CASCADE
+);
+
+create table record(
+       user_id int,
+       video_id int,
+       date DATE,
+       done boolean, 
+       PRIMARY KEY(user_id, video_id, date),
+   FOREIGN KEY(user_id) REFERENCES users(user_id) on DELETE CASCADE,
+   FOREIGN KEY(video_id) REFERENCES video(video_id) on DELETE CASCADE
+);
