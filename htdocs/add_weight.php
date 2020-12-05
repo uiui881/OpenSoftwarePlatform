@@ -6,7 +6,7 @@ include "config.php";
 <?php
 $user_id = 1;
 $new_weight = $_POST['new_weight'];
-$new_date = $_POST['new_date'];
+$new_date = date("Y-m-d");
 
 $conn->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
 $conn->autocommit(FALSE);
