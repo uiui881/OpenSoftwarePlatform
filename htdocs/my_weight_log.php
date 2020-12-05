@@ -49,6 +49,8 @@ body{
     $result2 = mysqli_query($conn, $sql2);
     $goal = mysqli_fetch_array($result2);
     echo 'Weight Goal : '.$goal['goal'].'kg';
+    $arrForJS3 = json_encode($goal['goal']);  //weight_goal
+
 ?>
 </td>
 <td style="text-align:right;">
@@ -100,7 +102,59 @@ $arr2 = [];
 $arrForJS1 = json_encode($arr1);  //date
 $arrForJS2 = json_encode($arr2);  //weight
 
-echo '<script> var ctx = document.getElementById("weight_chart").getContext("2d");
+echo '<script>
+ var ctx = document.getElementById("weight_chart").getContext("2d");
+var canvas = document.getElementById("weight_chart");
+
+
+var horizonalLinePlugin = {
+  afterDraw: function(chartInstance) {
+    var yScale = chartInstance.scales["y-axis-0"];
+    var canvas = chartInstance.chart;
+    var ctx = canvas.ctx;
+    var index;
+    var line;
+    var style;
+
+
+    if (chartInstance.options.horizontalLine) {
+      for (index = 0; index < chartInstance.options.horizontalLine.length; index++) {
+        line = chartInstance.options.horizontalLine[index];
+
+        if (!line.style) {
+          style = "rgba(169,169,169, .6)";
+        } else {
+          style = line.style;
+        }
+
+        if (line.y) {
+          yValue = yScale.getPixelForValue(line.y);
+        } else {
+          yValue = 0;
+        }
+
+        ctx.lineWidth = 3;
+
+        if (yValue) {
+          ctx.beginPath();
+          ctx.moveTo(0, yValue);
+          ctx.lineTo(canvas.width, yValue);
+          ctx.strokeStyle = style;
+          ctx.stroke();
+        }
+
+        if (line.text) {
+          ctx.fillStyle = style;
+          ctx.fillText(line.text, 0, yValue + ctx.lineWidth);
+        }
+      }
+      return;
+    };
+  }
+};
+Chart.pluginService.register(horizonalLinePlugin);
+
+
 var chart = new Chart(ctx, {
 	type: "line",
 	data: {
@@ -111,7 +165,13 @@ var chart = new Chart(ctx, {
 			borderColor: "#ff4d00",
 			data: '.$arrForJS2.'  }]
 	},
-	options: {} });
+  options: {
+    "horizontalLine": [{
+      "y": '.$arrForJS3.',
+      "style": "#ff0000 ",
+
+    }]
+  }});
 	</script>';
 ?>
 
