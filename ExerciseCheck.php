@@ -1,10 +1,6 @@
 <?php @ob_start();
-   $startdate=new DateTime("11/24");
-   $todaydate=new DateTime(date("m/d"));
-   
-   $dd=date_diff($startdate,$todaydate);
 
-   $conn = mysqli_connect("localhost","root", "pw", "ut");
+   $conn = mysqli_connect("localhost","root", "159753", "ut");
 
    $conn->set_charset("utf8");
 
@@ -24,8 +20,17 @@
       
    }
 
-  // $sql="SELECT date FROM record";
-  // $res = mysqli_query($conn,$sql);
+   $sql="SELECT add_date FROM video WHERE video_id=1;";
+   $res = mysqli_query($conn,$sql);
+   $row= mysqli_fetch_array($res);
+
+   //echo $row['add_date'];
+
+
+   $startdate=date_create($row['add_date']);
+   $todaydate=new DateTime(date("Y-m-d"));
+
+   $dd=date_diff($startdate,$todaydate);
 
 ?> 
 
@@ -37,7 +42,7 @@
 </head>
 <body>
    <h1>&nbsp &nbsp Exercise Check</h1>
-
+   <frameset>
    <iframe width="560" height="315" src="https://www.youtube.com/embed/OwOfylESbB0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
    </iframe>
    <form action="" method="POST">
@@ -46,6 +51,7 @@
       <input type="submit" name="sub" value="Confirm">
    </form>
       <br>
+   </frameset>
 
 
 <?php
@@ -55,9 +61,10 @@
    if($just=="on"){
       $sql="insert into record(user_id, video_id, date, done) values (1,1,'".date("Y-m-d")."',TRUE)";
       $res = mysqli_query($conn,$sql);
+
+      echo "체크되었습니다!";
    }
    
-
 ?>
 <!--
 <script type="text/javascript">
