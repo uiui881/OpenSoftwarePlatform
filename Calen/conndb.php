@@ -4,7 +4,7 @@ global $DB_HOST,$DB_USER,$DB_PASSWD,$DB_SNAME,$db_link;
 
 $DB_HOST="localhost";
 $DB_USER="root";
-$DB_PASSWD="159753";
+$DB_PASSWD="pw";
 $DB_SNAME="ut";
 $db_link = false;
 
