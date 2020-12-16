@@ -1,91 +1,143 @@
-<?php 
-include "header.php";
-?>
-<?php
-    $name = $_SESSION['name'];
-    $sql1 = "SELECT * FROM users where name = '$name'";
-    # name을 통해서 user정보를 찾기
-    $result1 = mysqli_query($conn, $sql1); 
-    $row1 = mysqli_fetch_array($result1);
-    $user_id = $row1['user_id'];
-    $goal = $row1['goal']; ## user goal을 찾기
-    ##echo '<br>'.$goal;
+<?php include "header.php"; ?>
 
+<html>
 
-    ?>
+<head>
+  <title>YouTraining - My Videos</title>
+  <style>
+  #thumbnail {
+    overflow: hidden;
+    margin: 0 auto;
+    border-radius: 14px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.2);
+    background: #fff;
+  }
 
-    <table>
-      <tr><td><?php echo 'Welcome '.$name.'!!!'; ?></td><td></td></tr>
-      <tr><td>목표 체중 : <?php echo $goal. 'kg';?>  </td> </tr>
-       <tr><td>감량할 체중 : <?php 
+  #thumbnail img {
+    transition: 0.3s all ease-in-out;
+  }
 
-       $sql4_1 = "SELECT max(date) as latest FROM weight_record where user_id = $user_id";
-      $result4_1 = mysqli_query($conn, $sql4_1);
-      $row4_1 = mysqli_fetch_array($result4_1);
-      $latest = $row4_1['latest'];
-      //echo $latest;
-      $sql4 = "SELECT weight FROM weight_record where user_id = $user_id and date=$latest";
-      $result4 = mysqli_query($conn, $sql4);
-      while($row4 = mysqli_fetch_array($result4)){
-        echo $row4['weight']-$goal.' kg left';}
-      ?>  </td> </tr>
-      <!--
+  #thumbnail:hover img {
+    transform: scale(1.05);
+  }
 
-      #<tr><td>목표 체중</td><td><?php #echo $goal. 'kg';?></td></tr>
-      <tr><td>감량할 체중</td><td><?php
-      # $sql4_1 = "SELECT max(date) as latest FROM weight_record where user_id = $user_id";
-      #$result4_1 = mysqli_query($conn, $sql4_1);
-      #$row4_1 = mysqli_fetch_array($result4_1);
-      #$lastest = $row4_1['latest'];
-      #echo $lastest;
-      #$sql4 = "SELECT weight FROM weight_record where user_id = $user_id and date=$lastest";
-      #$result4 = mysqli_query($conn, $sql4);
-      #while($row4 = mysqli_fetch_array($result4)){
-      #  echo $row4['weight']- $lastest;
-        //echo $row4['weight']-$goal.' kg left';
-      #}
-      ?></td></tr>
-      <br><br><br><br>
-    -->
-    <?php
+  #addVideo-a {
+    text-decoration: none;
+    color: grey;
+  }
+
+  #addVideo-a:hover {
+    color: red;
+  }
+
+  #addVideo-div {
+    overflow: hidden;
+    text-align:center;
+    width:380px;
+    height:215px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.2);
+    background: #fff;
+    border-radius: 14px;
+    border: 1px solid #e8eef3;
+    cursor: pointer;
+  }
+
+  #addVideo-div i {
+    transition: 0.3s all ease-in-out;
+  }
+
+  #addVideo-div:hover i {
+    transform: scale(1.1);
+  }
+
+  a {
+    color:grey;
+  }
+  a:hover {
+    color:red;
+  }
+
+  </style>
+</head>
+
+<body>
+
+  <div style="padding-left: 150px;"><h1 style="margin-bottom: 0px;">Your Videos</h1></div>
+
+  <?php
   # user가 구독하고 있는 동영상 찾기
-    $sql2 = "SELECT * FROM user_video where user_id = $user_id";
-    $result2 = mysqli_query($conn, $sql2); 
-    $i =0;
-    #echo '<br>';
-    echo '<tr>';
-    while($row2 = mysqli_fetch_array($result2)){
-        $video_id = $row2['video_id'];
-        $sql3 = "SELECT * FROM video where video_id = $video_id";
-        $result3 = mysqli_query($conn, $sql3);
+  $sql = "SELECT * FROM user_video, video WHERE user_id = $user_id AND user_video.video_id = video.video_id";
+  $result = mysqli_query($conn, $sql);
 
-        
-        while($row3 = mysqli_fetch_array($result3)){
-          ?>
-            <td>
-              <?php echo '<iframe width="400" height="200" src="'.$row3['link'].'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';?></td><?php
-    
-        $i+=1;
-        if($i==3){
-          echo '</tr><tr>';
-          $sql2_1 = "SELECT * FROM user_video where user_id = $user_id";
-    $result2_1 = mysqli_query($conn, $sql2_1); 
-          while($row2_1 = mysqli_fetch_array($result2_1)){
-        $video_id = $row2_1['video_id'];
-        //echo video_id;
-        $sql3_1 = "SELECT * FROM video where video_id = $video_id";
-        $result3_1 = mysqli_query($conn, $sql3_1);
-        while($row3_1 = mysqli_fetch_array($result3_1)){
-          ?>
-          <td><?php 
-              $current = date('Y-m-d',time());
-              $d_day = intval((strtotime($current) - strtotime($row3_1['startDate'])) / 86400);
-              echo "D +".$d_day." days";  ?></td><?php
-            }
-          }
-        } 
+  echo '<table style="margin: auto; border-spacing: 50px 50px">';
+  $i = 0;
+  while($row = mysqli_fetch_array($result)) {
+    if($i == '0') {
+      echo '<tr>';
+    }
+    $video_id = $row['video_id'];
 
+    $sql2 = "SELECT MAX(date) AS maxDate, count(DATE) AS count FROM record WHERE user_id = $user_id AND video_id = $video_id AND done=true";
+    $result2 = mysqli_query($conn, $sql2);
+    $row2 = mysqli_fetch_array($result2);
 
-      }
-    }echo '</tr></table>';
-?>
+    $link = $row['link'];
+    echo '
+    <td style="vertical-align: top; width:385px">
+      <div id="thumbnail">
+        <a href="ExerciseCheck.php?videoId='.$video_id.'"><img src="http://i3.ytimg.com/vi/'.$link.'/maxresdefault.jpg" width="385" height="215"></a>
+      </div>
+      <div style="margin-top: 5px;">'.$row['title'].'</div>
+      <div>
+        <i class="material-icons" style="position: relative;top: 5px;">event_available</i> '.$row2['count'].'&nbsp;&nbsp;&nbsp;&nbsp;'.$row2['maxDate'].'
+        <a href="delete.php?videoId='.$video_id.'">
+          <i class="delete-icon material-icons" style="position: relative;top: 4px; float:right; cursor:pointer; font-size:30px">delete</i>
+        </a>
+      </div>
+    </td>';
+
+    $i++;
+
+    if($i == '3') {
+      echo '</tr>';
+      $i = 0;
+    }
+  }
+
+  if($i != 0) {
+    echo '
+    <td style="vertical-align: top;">
+      <a id="addVideo-a" href="search.php">
+        <div id="addVideo-div">
+          <div style="margin-top:45px">
+            <i class="material-icons" style="font-size:100px;">video_call</i>
+            <br>Add Video<br>
+          </div>
+        </div>
+        <div style="height: 30px;"></div>
+      </a>
+    </td>';
+    echo '</tr>';
+  }
+  else {
+    echo '
+    <tr>
+      <td>
+        <a id="addVideo-a" href="search.php">
+          <div id="addVideo-div">
+            <div style="margin-top:45px">
+              <i class="material-icons" style="font-size:100px;">video_call</i>
+              <br>Add Video<br>
+            </div>
+          </div>
+          <div style="height: 30px;"></div>
+        </a>
+      </td>
+    </tr>';
+  }
+
+  echo '</table>';
+  ?>
+
+</body>
+</html>
