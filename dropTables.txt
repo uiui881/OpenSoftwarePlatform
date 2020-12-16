@@ -1,5 +1,0 @@
-drop table record;
-drop table user_video;
-drop table video;
-drop table weight_record;
-drop table users;
